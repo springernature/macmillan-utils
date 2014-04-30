@@ -1,7 +1,6 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'macmillan/utils/version'
+require "macmillan/utils/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "macmillan-utils"
@@ -20,4 +19,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
+
+  spec.add_dependency "rspec"
+  spec.add_dependency "simplecov"
+  spec.add_dependency "simplecov-rcov"
+  spec.add_dependency "codeclimate-test-reporter"
+  spec.add_dependency "webmock"
 end
