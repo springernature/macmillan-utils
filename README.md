@@ -23,6 +23,7 @@ Or install it yourself as:
 Add the following to your `spec_helper.rb` get our default RSpec setup:
 
     require 'macmillan/utils/rspec/rspec_defaults'
+    require 'macmillan/utils/rspec/codeclimate_helper'
     require 'macmillan/utils/rspec/simplecov_helper'
     require 'macmillan/utils/rspec/webmock_helper'
 
