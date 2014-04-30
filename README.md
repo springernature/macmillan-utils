@@ -1,12 +1,12 @@
 # Macmillan::Utils
 
-TODO: Write a gem description
+A collection of useful patterns we use in our Ruby applications.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'macmillan-utils'
+    gem 'macmillan-utils', require: false
 
 And then execute:
 
@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### RSpec Helpers
+
+Add the following to your `spec_helper.rb` get our default RSpec setup:
+
+    require 'macmillan/utils/rspec/rspec_defaults'
+    require 'macmillan/utils/rspec/simplecov_helper'
+    require 'macmillan/utils/rspec/webmock_helper'
 
 ## Contributing
 
