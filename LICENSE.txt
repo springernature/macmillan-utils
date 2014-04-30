@@ -1,4 +1,4 @@
-Copyright (c) 2014 Darren Oakley
+Copyright (c) 2014 Macmillan Science and Education
 
 MIT License
 
