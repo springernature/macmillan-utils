@@ -7,8 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = Macmillan::Utils::VERSION
   spec.authors       = ["Darren Oakley"]
   spec.email         = ["daz.oakley@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{A collection of useful patterns we (Macmillan Science and Education) use in our Ruby applications.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
