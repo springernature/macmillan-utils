@@ -15,7 +15,10 @@ if ENV['USE_SIMPLECOV']
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[*formatters]
 
   unless ENV['DO_NOT_START_SIMPLECOV']
-    SimpleCov.start do
+    mode = nil
+    mode = 'rails' if ENV['RAILS_ENV']
+
+    SimpleCov.start mode do
       load_profile 'test_frameworks'
       merge_timeout 3600
     end
