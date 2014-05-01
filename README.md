@@ -24,9 +24,9 @@ Add the following to the top of your `spec_helper.rb`:
 
 ```ruby
 require 'macmillan/utils/rspec/rspec_defaults'
-require 'macmillan/utils/rspec/codeclimate_helper'
-require 'macmillan/utils/rspec/simplecov_helper'
 require 'macmillan/utils/rspec/webmock_helper'
+require 'macmillan/utils/test_helpers/codeclimate_helper'
+require 'macmillan/utils/test_helpers/simplecov_helper'
 ```
 
 ## Cucumber Helpers
@@ -34,9 +34,9 @@ require 'macmillan/utils/rspec/webmock_helper'
 Add the following to the top of your `env.rb`:
 
 ```ruby
-require 'macmillan/utils/rspec/codeclimate_helper'
-require 'macmillan/utils/rspec/simplecov_helper'
 require 'macmillan/utils/cucumber/cucumber_defaults'
+require 'macmillan/utils/test_helpers/codeclimate_helper'
+require 'macmillan/utils/test_helpers/simplecov_helper'
 ```
 
 ## Contributing
