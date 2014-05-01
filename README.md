@@ -20,12 +20,24 @@ Or install it yourself as:
 
 ### RSpec Helpers
 
-Add the following to your `spec_helper.rb` get our default RSpec setup:
+Add the following to the top of your `spec_helper.rb`:
 
-    require 'macmillan/utils/rspec/rspec_defaults'
-    require 'macmillan/utils/rspec/codeclimate_helper'
-    require 'macmillan/utils/rspec/simplecov_helper'
-    require 'macmillan/utils/rspec/webmock_helper'
+```ruby
+require 'macmillan/utils/rspec/rspec_defaults'
+require 'macmillan/utils/rspec/codeclimate_helper'
+require 'macmillan/utils/rspec/simplecov_helper'
+require 'macmillan/utils/rspec/webmock_helper'
+```
+
+## Cucumber Helpers
+
+Add the following to the top of your `env.rb`:
+
+```ruby
+require 'macmillan/utils/rspec/codeclimate_helper'
+require 'macmillan/utils/rspec/simplecov_helper'
+require 'macmillan/utils/cucumber/cucumber_defaults'
+```
 
 ## Contributing
 

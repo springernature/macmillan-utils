@@ -24,4 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "simplecov-rcov"
   spec.add_dependency "codeclimate-test-reporter"
   spec.add_dependency "webmock"
+  spec.add_dependency "multi_test"
 end
