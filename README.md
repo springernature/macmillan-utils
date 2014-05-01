@@ -29,12 +29,13 @@ require 'macmillan/utils/test_helpers/codeclimate_helper'
 require 'macmillan/utils/test_helpers/simplecov_helper'
 ```
 
-## Cucumber Helpers
+### Cucumber Helpers
 
 Add the following to the top of your `env.rb`:
 
 ```ruby
 require 'macmillan/utils/cucumber/cucumber_defaults'
+require 'macmillan/utils/cucumber/webmock_helper'
 require 'macmillan/utils/test_helpers/codeclimate_helper'
 require 'macmillan/utils/test_helpers/simplecov_helper'
 ```
