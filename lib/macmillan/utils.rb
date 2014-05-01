@@ -9,5 +9,6 @@ module Macmillan
     autoload :VERSION,         'macmillan/utils/version'
     autoload :Logger,          'macmillan/utils/logger'
     autoload :StatsdDecorator, 'macmillan/utils/statsd_decorator'
+    autoload :Settings,        'macmillan/utils/settings'
   end
 end
