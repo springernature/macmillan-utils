@@ -12,11 +12,22 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it yourself with:
 
     $ gem install macmillan-utils
 
 ## Usage
+
+### LoggerFactory
+
+To build logger objects quickly and easily:
+
+```ruby
+require 'macmillan/utils/logger_factory'
+Macmillan::Utils::LoggerFactory.build_logger(:syslog, tag: 'myapp')
+```
+
+See the [Macmillan::Utils::LoggerFactory](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger_factory.rb) documentation for more information.
 
 ### RSpec Helpers
 
