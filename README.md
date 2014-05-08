@@ -2,6 +2,8 @@
 
 A collection of useful patterns we use in our Ruby applications.
 
+[![Build Status](https://travis-ci.org/nature/macmillan-utils.svg?branch=log-formatter)](https://travis-ci.org/nature/macmillan-utils) [![Code Climate](https://codeclimate.com/github/nature/macmillan-utils.png)](https://codeclimate.com/github/nature/macmillan-utils)
+
 ## Installation
 
 Add this line to your application's Gemfile:
