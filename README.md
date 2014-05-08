@@ -18,16 +18,22 @@ Or install it yourself with:
 
 ## Usage
 
-### LoggerFactory
+### Logger Objects
 
 To build logger objects quickly and easily:
 
 ```ruby
-require 'macmillan/utils/logger_factory'
-Macmillan::Utils::LoggerFactory.build_logger(:syslog, tag: 'myapp')
+require 'macmillan/utils/logger/factory'
+require 'macmillan/utils/logger/formatter'
+
+logger = Macmillan::Utils::Logger::Factory.build_logger(:syslog, tag: 'myapp')
+logger.formatter = Macmillan::Utils::Logger::Formatter.new
 ```
 
-See the [Macmillan::Utils::LoggerFactory](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger_factory.rb) documentation for more information.
+See the class documentation for more information:
+
+* [Macmillan::Utils::Logger::Factory](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/factory.rb)
+* [Macmillan::Utils::Logger::Formatter](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/formatter.rb)
 
 ### RSpec Helpers
 
