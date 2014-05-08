@@ -53,7 +53,7 @@ module Macmillan
           end
 
           tag      = opts.fetch(:tag)
-          facility = Object.const_get("Syslog::LOG_LOCAL#{opts.fetch(:facility, 0)}")
+          facility = Syslog.const_get("LOG_LOCAL#{opts.fetch(:facility, 0)}")
 
           ::Logger::Syslog.new(tag, facility)
         end

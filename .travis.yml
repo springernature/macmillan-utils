@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+  - 2.1.1
+  - jruby-19mode
+  - rbx-2.2.6
+env:
+  - USE_SIMPLECOV=true CODECLIMATE_REPO_TOKEN=2175628fb41494d45b50b6938600a53c130e1f7ac3b81b072bb71e91073a5e4a
