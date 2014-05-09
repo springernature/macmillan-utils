@@ -1,12 +1,11 @@
 require 'spec_helper'
-
 require 'syslog-logger'
-require_relative '../../../../lib/macmillan/utils/logger_factory'
+require 'macmillan/utils/logger/factory'
 
-describe Macmillan::Utils::LoggerFactory do
+describe Macmillan::Utils::Logger::Factory do
   describe '#build_logger' do
     context 'for a syslog logger' do
-      subject { Macmillan::Utils::LoggerFactory.build_logger(:syslog, tag: 'myapp', facility: 2) }
+      subject { Macmillan::Utils::Logger::Factory.build_logger(:syslog, tag: 'myapp', facility: 2) }
 
       it 'returns a Logger::Syslog object' do
         expect(subject).to be_an_instance_of(Logger::Syslog)
@@ -23,7 +22,7 @@ describe Macmillan::Utils::LoggerFactory do
     end
 
     context 'for a standard Logger' do
-      subject { Macmillan::Utils::LoggerFactory.build_logger(:logger) }
+      subject { Macmillan::Utils::Logger::Factory.build_logger(:logger) }
 
       it 'returns a Logger object' do
         expect(subject).to be_an_instance_of(Logger)
@@ -36,12 +35,12 @@ describe Macmillan::Utils::LoggerFactory do
 
       it 'allows you to configure the log target' do
         expect(Logger).to receive(:new).with('foo.log')
-        Macmillan::Utils::LoggerFactory.build_logger(:logger, target: 'foo.log')
+        Macmillan::Utils::Logger::Factory.build_logger(:logger, target: 'foo.log')
       end
     end
 
     context 'for a null logger' do
-      subject { Macmillan::Utils::LoggerFactory.build_logger(:null) }
+      subject { Macmillan::Utils::Logger::Factory.build_logger(:null) }
 
       it 'returns a Logger object' do
         expect(subject).to be_an_instance_of(Logger)
