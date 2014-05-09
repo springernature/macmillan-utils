@@ -4,7 +4,5 @@ RSpec.configure do |config|
   config.order = 'random'
 
   # Exit the suite on the first failure
-  if ENV['FAIL_FAST']
-    config.fail_fast = true
-  end
+  config.fail_fast = true if ENV['FAIL_FAST']
 end

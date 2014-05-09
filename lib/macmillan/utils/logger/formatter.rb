@@ -1,7 +1,6 @@
 module Macmillan
   module Utils
     module Logger
-
       ##
       # A log formatter class for Logger objects
       #
@@ -14,19 +13,15 @@ module Macmillan
       #   logger.formatter = Macmillan::Utils::Logger::Formatter.new
       #
       class Formatter < ::Logger::Formatter
-
         ##
         # Builds a new instance of Formatter
         #
         # @param prefix [String] a string to prepend to all log lines
         # @return [Formatter] the configured formatter object
         #
-        def initialize(prefix=nil)
+        def initialize(prefix = nil)
           @format = "[%5s]: %s\n"
-
-          if prefix
-            @format = "#{prefix} #{@format}"
-          end
+          @format = "#{prefix} #{@format}" if prefix
         end
 
         ##

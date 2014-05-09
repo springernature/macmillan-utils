@@ -3,7 +3,6 @@ require 'logger'
 module Macmillan
   module Utils
     module Logger
-
       ##
       # A factory class for building logger objects
       #
@@ -14,11 +13,10 @@ module Macmillan
       #   Macmillan::Utils::Logger::Factory.build_logger(type, options)
       #
       class Factory
-
         ##
         # Builds a logger object
         #
-        # Opts varies depending on the type of logger object you are creating...
+        # Opts varies depending on the type of logger object you are creating:
         #
         #   opts for :syslog
         #     :tag      => [String] the name of the syslog tag to use
@@ -43,8 +41,6 @@ module Macmillan
           end
         end
 
-        private
-
         def self.build_syslog_logger(opts)
           require 'syslog-logger'
 
@@ -57,10 +53,12 @@ module Macmillan
 
           ::Logger::Syslog.new(tag, facility)
         end
+        private_class_method :build_syslog_logger
 
         def self.build_normal_logger(opts)
           ::Logger.new(opts.fetch(:target, $stdout))
         end
+        private_class_method :build_normal_logger
       end
     end
   end

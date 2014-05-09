@@ -5,7 +5,7 @@ require 'multi_test'
 MultiTest.disable_autorun
 
 # exit the suite after the first failure
-if ENV["FAIL_FAST"]
+if ENV['FAIL_FAST']
   After do |scenario|
     Cucumber.wants_to_quit = true if scenario.failed?
   end

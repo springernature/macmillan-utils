@@ -1,4 +1,4 @@
-require "macmillan/utils/version"
+require 'macmillan/utils/version'
 
 ##
 # Namespace for Macmillan specific code...
