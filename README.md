@@ -34,8 +34,8 @@ logger.formatter = Macmillan::Utils::Logger::Formatter.new
 
 See the class documentation for more information:
 
-* [Macmillan::Utils::Logger::Factory](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/factory.rb)
-* [Macmillan::Utils::Logger::Formatter](https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/formatter.rb)
+* [Macmillan::Utils::Logger::Factory][Logger::Factory]
+* [Macmillan::Utils::Logger::Formatter][Logger::Formatter]
 
 ### RSpec Helpers
 
@@ -59,9 +59,17 @@ require 'macmillan/utils/test_helpers/codeclimate_helper'
 require 'macmillan/utils/test_helpers/simplecov_helper'
 ```
 
+### Other Useful Modules/Classes
+
+* [Macmillan::Utils::StatsdDecorator][StatsdDecorator] - Logging and more for StatsD calls.
+
+[Logger::Factory]: https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/factory.rb
+[Logger::Formatter]: https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/formatter.rb
+[StatsdDecorator]: https://github.com/nature/macmillan-utils/blob/master/lib/macmillan/utils/logger/factory.rb
+
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/macmillan-utils/fork )
+1. Fork it ( https://github.com/nature/macmillan-utils/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
