@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'syslog-logger'
-require 'macmillan/utils/logger/factory'
 
 describe Macmillan::Utils::Logger::Factory do
   describe '#build_logger' do
