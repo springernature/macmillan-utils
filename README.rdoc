@@ -58,6 +58,7 @@ Add the following to the top of your `env.rb`:
 === Other Useful Modules/Classes
 
 * {Macmillan::Utils::StatsdDecorator} - Logging and more for StatsD calls.
+* {Macmillan::Utils::StatsdStub} - Stubbed StatsD class for use in test suites.
 
 == Contributing
 
