@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'macmillan/utils/logger/factory'
-require 'macmillan/utils/logger/formatter'
 
 describe Macmillan::Utils::Logger::Formatter do
   let(:msg)    { 'testing' }

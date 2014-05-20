@@ -4,7 +4,7 @@ module Macmillan
       ##
       # A log formatter class for Logger objects
       #
-      # Usage:
+      # === Usage:
       #
       #   require 'macmillan/utils/logger/factory'
       #   require 'macmillan/utils/logger/formatter'
