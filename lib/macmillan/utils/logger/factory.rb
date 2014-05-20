@@ -6,7 +6,7 @@ module Macmillan
       ##
       # A factory class for building logger objects
       #
-      # Usage:
+      # === Usage:
       #
       #   require 'macmillan/utils/logger/factory'
       #

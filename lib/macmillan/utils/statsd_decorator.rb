@@ -1,13 +1,13 @@
 module Macmillan
   module Utils
     ##
-    # Utility class to wrap the Statsd class from statsd-ruby (INSERT LINK).
+    # Utility class to wrap the Statsd class from {http://rubygems.org/gems/statsd-ruby statsd-ruby}.
     #
     # This will allow you to log Statsd messages to your logs, but only
     # really send messages to the StatsD server when running in a
     # 'production' environment.
     #
-    # Usage:
+    # === Usage:
     #
     # Add 'statsd-ruby' and 'macmillan-utils' to your Gemfile:
     #
@@ -27,7 +27,7 @@ module Macmillan
     #   statsd = Statsd.new('http://statsd.example.com', 8080)
     #   statsd = Macmillan::Utils::StatsdDecorator.new(statsd, Rails.env, Rails.logger)
     #
-    # @ref statsd-ruby for more information on the statsd-ruby gem.
+    # @see http://rubygems.org/gems/statsd-ruby
     #
     class StatsdDecorator < SimpleDelegator
       attr_accessor :env, :logger
