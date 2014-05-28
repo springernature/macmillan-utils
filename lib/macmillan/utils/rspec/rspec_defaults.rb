@@ -1,5 +1,3 @@
-require 'rspec'
-
 def check_rubocop_and_hound
   # ASSUMPTION: We are running the RSpec suite from the root of a project tree
   update_rubocop     = true
