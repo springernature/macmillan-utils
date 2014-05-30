@@ -8,3 +8,5 @@ BracesAroundHashParameters:
 DotPosition:
   Enabled: false
 
+AlignParameters:
+  EnforcedStyle: with_fixed_indentation
