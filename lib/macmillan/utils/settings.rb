@@ -28,6 +28,7 @@ module Macmillan
         #
         attr_accessor :backends
       end
+
       self.backends = [
         ProcessEnvironment,
         ApplicationYaml

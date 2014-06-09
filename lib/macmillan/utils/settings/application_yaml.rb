@@ -10,6 +10,7 @@ module Macmillan
         end
 
         private
+
         def build_value(key)
           Value.new key, yaml[key], self, key
         end
