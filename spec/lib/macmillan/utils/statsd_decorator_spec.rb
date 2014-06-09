@@ -62,7 +62,7 @@ describe Macmillan::Utils::StatsdDecorator do
         block_called = true
       end
 
-      expect(block_called).to be_true
+      expect(block_called).to be(true)
     end
 
     it 'should return the output of the block' do

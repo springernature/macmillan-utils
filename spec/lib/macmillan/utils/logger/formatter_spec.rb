@@ -39,10 +39,8 @@ describe Macmillan::Utils::Logger::Formatter do
     context 'when the log message is an exception' do
       it 'returns full details of the exception' do
         ex = StandardError.new('qwerty')
-        expect(ex).to receive(:message).once
-        expect(ex).to receive(:class).once
-        expect(ex).to receive(:backtrace).once
-
+        ex.stub(:backtrace).and_return(%w(foo bar baz quux))
+        expect(target).to receive(:write).with("[ INFO]: qwerty (StandardError)\nfoo\nbar\nbaz\nquux\n").once
         logger.info ex
       end
     end
