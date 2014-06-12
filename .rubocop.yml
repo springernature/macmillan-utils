@@ -10,3 +10,6 @@ DotPosition:
 
 AlignParameters:
   EnforcedStyle: with_fixed_indentation
+
+IndentHash:
+  EnforcedStyle: consistent
