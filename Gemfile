@@ -6,3 +6,7 @@ gemspec
 group :doc do
   gem 'yard'
 end
+
+group :development, :test do
+  gem 'pry'
+end

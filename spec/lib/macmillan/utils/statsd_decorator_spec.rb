@@ -23,8 +23,6 @@ describe Macmillan::Utils::StatsdDecorator do
         @args = [stat_name]
         @args << method_args if method_args
         @args << 1 # sample_rate
-
-        statsd.stub(method)
       end
 
       it 'should send a message to the logger' do
