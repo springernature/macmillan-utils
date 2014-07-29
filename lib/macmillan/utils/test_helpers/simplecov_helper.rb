@@ -21,6 +21,7 @@ if ENV['USE_SIMPLECOV']
     SimpleCov.start mode do
       load_profile 'test_frameworks'
       merge_timeout 3600
+      coverage_dir 'artifacts/coverage'
     end
   end
 end
