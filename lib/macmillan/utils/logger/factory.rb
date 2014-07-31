@@ -46,6 +46,7 @@ module Macmillan
 
           ::Logger::Syslog.class_eval do
             alias_method :write, :info
+            alias_method :log, :info
           end
 
           tag      = opts.fetch(:tag)
