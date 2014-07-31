@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "webmock"
   spec.add_dependency "multi_test"
   spec.add_dependency "syslog-logger"
+  spec.add_dependency "rubocop"
 end
