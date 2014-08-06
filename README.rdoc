@@ -37,6 +37,44 @@ See the class documentation for more information:
 * {Macmillan::Utils::Logger::Factory}
 * {Macmillan::Utils::Logger::Formatter}
 
+=== Settings
+
+Easily store and lookup configuration values in either environment variables, or a `application.yml` file.
+
+    ENV['REDIS_URL'] = 'localhost'
+    $settings        = Macmillan::Utils::Settings.instance
+    redis_url        = $settings.lookup('redis_url')          #=> 'localhost'
+
+The default action is to support BOTH environment variables and a `application.yml` file for settings - if you would
+prefer only one or the other, see the 'Switching Backends' section.
+
+If a setting is requested and it has not been set (in any configured backend), a Macmillan::Utils::Settings::KeyNotFoundError
+is raised.
+
+==== Evironment Variables
+
+Set your environment variables as you would normally, using all caps for the key name, and you can then fetch the value
+using `.lookup`.  Simples.
+
+==== `application.yml` Files
+
+If you prefer to use a YAML based config file, this is the option for you.  The code will first look for a `application.yml`
+file in a `config` directory (within the current working directory), if it doesn't find one, then it looks in the current
+working directory, and keeps moving up the filesystem until it finds one.  If it doesn't it raises an error.
+
+==== Switching Backends
+
+By default both the environment variable and application yaml backends are used, if you'd like only one, you need to specify this
+before building the settings instance, i.e.:
+
+    Macmillan::Utils::Settings.backends = [Macmillan::Utils::Settings::EnvVarsBackend]
+
+would only look for environment variables, whereas
+
+    Macmillan::Utils::Settings.backends = [Macmillan::Utils::Settings::AppYamlBackendBackend]
+
+would only look for settings in an `application.yml` file.
+
 === RSpec Helpers
 
 Add the following to the top of your `spec_helper.rb`:
