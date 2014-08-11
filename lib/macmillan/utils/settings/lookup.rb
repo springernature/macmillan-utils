@@ -6,13 +6,20 @@ module Macmillan
           @backends = backends
         end
 
-        def lookup(key, default = nil)
+        def lookup(key)
+          value = nil
+
           @backends.each do |backend|
-            result = backend.get key
-            return result.value unless result.kind_of? KeyNotFound
+            break if value
+            result = backend.get(key)
+            value  = result.value unless result.kind_of?(KeyNotFound)
           end
-          default
+
+          fail KeyNotFoundError.new("Cannot find a settings value for #{key}") unless value
+
+          value
         end
+
         # Backwards compatibility: in the past this has been used like a Hash
         alias_method :[], :lookup
         alias_method :fetch, :lookup

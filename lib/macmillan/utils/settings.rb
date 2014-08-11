@@ -1,13 +1,13 @@
 module Macmillan
   module Utils
     module Settings
-      autoload :ApplicationYaml,    'macmillan/utils/settings/application_yaml'
-      autoload :ProcessEnvironment, 'macmillan/utils/settings/process_environment'
+      autoload :AppYamlBackend, 'macmillan/utils/settings/app_yaml_backend'
+      autoload :EnvVarsBackend, 'macmillan/utils/settings/env_vars_backend'
+      autoload :Lookup,         'macmillan/utils/settings/lookup'
+      autoload :Value,          'macmillan/utils/settings/value'
+      autoload :KeyNotFound,    'macmillan/utils/settings/key_not_found'
 
-      autoload :Lookup,             'macmillan/utils/settings/lookup'
-
-      autoload :Value,              'macmillan/utils/settings/value'
-      autoload :KeyNotFound,        'macmillan/utils/settings/key_not_found'
+      class KeyNotFoundError < StandardError; end
 
       class << self
         # Get an instance of the settings looker-upper
@@ -16,7 +16,7 @@ module Macmillan
             backend_instances = backends.map do |backend|
               backend.new
             end
-            Lookup.new backend_instances
+            Lookup.new(backend_instances)
           end
         end
 
@@ -29,10 +29,7 @@ module Macmillan
         attr_accessor :backends
       end
 
-      self.backends = [
-        ProcessEnvironment,
-        ApplicationYaml
-      ]
+      self.backends = [EnvVarsBackend, AppYamlBackend]
     end
   end
 end
