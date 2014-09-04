@@ -7,6 +7,6 @@ rvm:
   - 2.1.1
   - 2.1.2
   - jruby-19mode
-  - rbx-2.2.10
+  - rbx
 env:
   - USE_SIMPLECOV=true CODECLIMATE_REPO_TOKEN=2175628fb41494d45b50b6938600a53c130e1f7ac3b81b072bb71e91073a5e4a
