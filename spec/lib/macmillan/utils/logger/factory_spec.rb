@@ -10,7 +10,7 @@ describe Macmillan::Utils::Logger::Factory do
       end
 
       it 'allows you to configure the syslog tag and facility' do
-        expect(Logger::Syslog).to receive(:new).with('myapp', Syslog::LOG_LOCAL2)
+        expect(Logger::Syslog).to receive(:new).with('myapp', Syslog::LOG_LOCAL2).and_call_original
         subject
       end
 
@@ -27,12 +27,12 @@ describe Macmillan::Utils::Logger::Factory do
       end
 
       it 'logs to STDOUT by default' do
-        expect(Logger).to receive(:new).with($stdout)
+        expect(Logger).to receive(:new).with($stdout).and_call_original
         subject
       end
 
       it 'allows you to configure the log target' do
-        expect(Logger).to receive(:new).with('foo.log')
+        expect(Logger).to receive(:new).with('foo.log').and_call_original
         Macmillan::Utils::Logger::Factory.build_logger(:logger, target: 'foo.log')
       end
     end
@@ -45,7 +45,7 @@ describe Macmillan::Utils::Logger::Factory do
       end
 
       it 'builds a logger object that points to /dev/null' do
-        expect(Logger).to receive(:new).with('/dev/null')
+        expect(Logger).to receive(:new).with('/dev/null').and_call_original
         subject
       end
     end

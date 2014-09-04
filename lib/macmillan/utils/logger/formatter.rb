@@ -2,15 +2,14 @@ module Macmillan
   module Utils
     module Logger
       ##
-      # A log formatter class for Logger objects
+      # A log formatter class for Logger objects.  This formatter is used automatically
+      # when you use the {Macmillan::Utils::Logger::Factory} class.
       #
       # === Usage:
       #
-      #   require 'macmillan/utils/logger/factory'
-      #   require 'macmillan/utils/logger/formatter'
+      #   require 'macmillan/utils/logger'
       #
       #   logger = Macmillan::Utils::Logger::Factory.build_logger(type, options)
-      #   logger.formatter = Macmillan::Utils::Logger::Formatter.new
       #
       class Formatter < ::Logger::Formatter
         ##
