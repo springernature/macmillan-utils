@@ -26,11 +26,12 @@ Or install it yourself with:
 
 To build logger objects quickly and easily:
 
-    require 'macmillan/utils/logger/factory'
-    require 'macmillan/utils/logger/formatter'
+    require 'macmillan/utils/logger'
 
     logger = Macmillan::Utils::Logger::Factory.build_logger(:syslog, tag: 'myapp')
-    logger.formatter = Macmillan::Utils::Logger::Formatter.new
+
+The logger will automatically use the {Macmillan::Utils::Logger::Formatter} formatter, and will log at the
+{Logger::INFO} level.
 
 See the class documentation for more information:
 

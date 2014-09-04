@@ -8,7 +8,7 @@ module Macmillan
       #
       # === Usage:
       #
-      #   require 'macmillan/utils/logger/factory'
+      #   require 'macmillan/utils/logger'
       #
       #   Macmillan::Utils::Logger::Factory.build_logger(type, options)
       #
@@ -33,12 +33,17 @@ module Macmillan
         # @return [Logger] the configured logger object
         #
         def self.build_logger(type = :logger, opts = {})
-          case type
-          when :syslog then build_syslog_logger(opts)
-          when :null   then build_normal_logger(target: '/dev/null')
-          else
-            build_normal_logger(opts)
-          end
+          logger = case type
+                   when :syslog then build_syslog_logger(opts)
+                   when :null   then build_normal_logger(target: '/dev/null')
+                   else
+                     build_normal_logger(opts)
+                   end
+
+          logger.formatter = ::Macmillan::Utils::Logger::Formatter.new
+          logger.level     = ::Logger::INFO
+
+          logger
         end
 
         def self.build_syslog_logger(opts)
