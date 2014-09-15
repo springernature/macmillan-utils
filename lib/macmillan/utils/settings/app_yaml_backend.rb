@@ -24,14 +24,14 @@ module Macmillan
         def application_yml_path
           search_pattern  = File.join('config', 'application.yml')
           here            = File.expand_path(Dir.pwd)
-          path_components = here.split /\//
+          path_components = here.split(/\//)
           found_path      = nil
 
           path_components.size.downto(1) do |path_size|
             break if found_path
             search_path = path_components[0,path_size]
             search_file = File.join(search_path, search_pattern)
-            found_path  = search_file if File.exists?(search_file)
+            found_path  = search_file if File.exist?(search_file)
           end
 
           fail 'cannot find application.yml' if found_path.nil?

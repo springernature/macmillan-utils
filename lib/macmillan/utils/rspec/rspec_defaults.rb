@@ -11,7 +11,7 @@ def check_rubocop_and_hound
     update_rubocop       = false if current_rubocop_conf == latest_rubocop_conf
   end
 
-  if !File.exists?(local_hound_file) || !File.symlink?(local_hound_file)
+  if !File.exist?(local_hound_file) || !File.symlink?(local_hound_file)
     system "rm -f #{local_hound_file}"
     system "ln -s #{rubocop_file} #{local_hound_file}"
   end
