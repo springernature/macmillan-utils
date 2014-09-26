@@ -1,4 +1,5 @@
 require 'logger'
+require_relative 'formatter'
 
 module Macmillan
   module Utils
