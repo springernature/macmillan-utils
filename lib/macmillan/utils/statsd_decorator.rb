@@ -87,7 +87,7 @@ module Macmillan
       private
 
       def log_stat(msg)
-        logger.info "[StatsD] #{msg}"
+        logger.debug "[StatsD] #{msg}"
       end
 
       def send_to_delegatee?
