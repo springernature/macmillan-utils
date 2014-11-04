@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Macmillan::Utils::StatsdDecorator do
   let(:statsd)    { double(:statsd) }
-  let(:logger)    { double(:logger, info: nil) }
+  let(:logger)    { double(:logger, debug: nil) }
   let(:env)       { 'development' }
   let(:stat_name) { 'wibble.flibble' }
 
@@ -26,7 +26,7 @@ describe Macmillan::Utils::StatsdDecorator do
       end
 
       it 'should send a message to the logger' do
-        expect(logger).to receive(:info).once
+        expect(logger).to receive(:debug).once
         subject.public_send(method, *@args)
       end
 
@@ -70,7 +70,7 @@ describe Macmillan::Utils::StatsdDecorator do
     end
 
     it 'should send a message to the logger' do
-      expect(logger).to receive(:info).once
+      expect(logger).to receive(:debug).once
       subject.time(stat_name) { true }
     end
 
