@@ -63,6 +63,11 @@ module Macmillan
         private_class_method :build_syslog_logger
 
         def self.build_normal_logger(opts)
+          ::Logger.class_eval do
+            alias_method :write, :info
+            alias_method :log, :info
+          end
+
           ::Logger.new(opts.fetch(:target, $stdout))
         end
         private_class_method :build_normal_logger
