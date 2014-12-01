@@ -16,9 +16,9 @@ describe Macmillan::Utils::Settings do
   it 'raises an error if the lookup fails' do
     looker_upper = Macmillan::Utils::Settings::Lookup.new([env_vars_backend])
 
-    expect {
+    expect do
       looker_upper.lookup 'baz'
-    }.to raise_error(Macmillan::Utils::Settings::KeyNotFoundError)
+    end.to raise_error(Macmillan::Utils::Settings::KeyNotFoundError)
   end
 
   context 'when using an application.yml file' do
@@ -35,9 +35,9 @@ describe Macmillan::Utils::Settings do
 
     context 'but the file does not exist' do
       it 'raises an appropriate error' do
-        expect {
+        expect do
           subject.lookup 'wibble'
-        }.to raise_error('cannot find application.yml')
+        end.to raise_error('cannot find application.yml')
       end
     end
   end

@@ -26,7 +26,7 @@ module Macmillan
         ##
         # Returns the log message formatted as desired
         #
-        def call(severity, time, progname, msg)
+        def call(severity, _time, _progname, msg)
           @format % [severity, msg2str(msg)]
         end
 

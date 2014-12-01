@@ -29,7 +29,7 @@ module Macmillan
 
           path_components.size.downto(1) do |path_size|
             break if found_path
-            search_path = path_components[0,path_size]
+            search_path = path_components[0, path_size]
             search_file = File.join(search_path, search_pattern)
             found_path  = search_file if File.exist?(search_file)
           end

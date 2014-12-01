@@ -4,10 +4,9 @@ require 'yard'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => :spec
-task :test    => :spec
+task default: :spec
+task test: :spec
 
 YARD::Rake::YardocTask.new do |task|
   task.files = ['lib/**/*.rb']
 end
-

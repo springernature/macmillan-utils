@@ -47,32 +47,32 @@ module Macmillan
       end
 
       def increment(stat, sample_rate = 1)
-        log_stat %Q{increment - "#{stat}" (sample_rate: #{sample_rate})}
+        log_stat %{increment - "#{stat}" (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 
       def decrement(stat, sample_rate = 1)
-        log_stat %Q{decrement - "#{stat}" (sample_rate: #{sample_rate})}
+        log_stat %{decrement - "#{stat}" (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 
       def count(stat, count, sample_rate = 1)
-        log_stat %Q{count - "#{stat}" #{count} (sample_rate: #{sample_rate})}
+        log_stat %{count - "#{stat}" #{count} (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 
       def guage(stat, value, sample_rate = 1)
-        log_stat %Q{gauge - "#{stat}" #{value} (sample_rate: #{sample_rate})}
+        log_stat %{gauge - "#{stat}" #{value} (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 
       def set(stat, value, sample_rate = 1)
-        log_stat %Q{set - "#{stat}" #{value} (sample_rate: #{sample_rate})}
+        log_stat %{set - "#{stat}" #{value} (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 
       def timing(stat, ms, sample_rate = 1)
-        log_stat %Q{timing - "#{stat}" #{ms}ms (sample_rate: #{sample_rate})}
+        log_stat %{timing - "#{stat}" #{ms}ms (sample_rate: #{sample_rate})}
         super if send_to_delegatee?
       end
 

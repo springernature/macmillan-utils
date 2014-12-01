@@ -17,25 +17,25 @@ module Macmillan
     # @see http://rubygems.org/gems/statsd-ruby
     #
     class StatsdStub
-      def increment(stat, sample_rate=1)
+      def increment(_stat, _sample_rate = 1)
       end
 
-      def decrement(stat, sample_rate=1)
+      def decrement(_stat, _sample_rate = 1)
       end
 
-      def count(stat, count, sample_rate=1)
+      def count(_stat, _count, _sample_rate = 1)
       end
 
-      def guage(stat, value, sample_rate=1)
+      def guage(_stat, _value, _sample_rate = 1)
       end
 
-      def set(stat, value, sample_rate=1)
+      def set(_stat, _value, _sample_rate = 1)
       end
 
-      def timing(stat, ms, sample_rate=1)
+      def timing(_stat, _ms, _sample_rate = 1)
       end
 
-      def time(stat, sample_rate=1)
+      def time(_stat, _sample_rate = 1)
         yield
       end
     end

@@ -33,14 +33,14 @@ require 'socket'
 #
 ActiveSupport::Notifications.subscribe /process_action.action_controller/ do |*args|
   event      = ActiveSupport::Notifications::Event.new(*args)
-  controller = event.payload[:controller].gsub('Controller','_controller').gsub('::','.')
+  controller = event.payload[:controller].gsub('Controller', '_controller').gsub('::', '.')
   action     = event.payload[:action]
   format     = event.payload[:format]
-  format     = 'other' unless %i[html json xml ris csv].include?(format)
+  format     = 'other' unless %i(html json xml ris csv).include?(format)
   status     = event.payload[:status].to_i
   status     = '5xx' if status >= 500 && status <= 599
   hostname   = Socket.gethostname.downcase
-  hostname   = hostname.gsub(ENV['STRIP_DOMAIN_FROM_HOST'],'') if ENV['STRIP_DOMAIN_FROM_HOST']
+  hostname   = hostname.gsub(ENV['STRIP_DOMAIN_FROM_HOST'], '') if ENV['STRIP_DOMAIN_FROM_HOST']
   key        = "controllers.#{controller}.#{action}.#{format}".downcase
 
   # count reponses

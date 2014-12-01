@@ -12,7 +12,7 @@ module Macmillan
           @backends.each do |backend|
             break if value
             result = backend.get(key)
-            value  = result.value unless result.kind_of?(KeyNotFound)
+            value  = result.value unless result.is_a?(KeyNotFound)
           end
 
           fail KeyNotFoundError.new("Cannot find a settings value for #{key}") unless value

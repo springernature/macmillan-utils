@@ -13,9 +13,7 @@ module Macmillan
         # Get an instance of the settings looker-upper
         def instance
           @instance ||= begin
-            backend_instances = backends.map do |backend|
-              backend.new
-            end
+            backend_instances = backends.map(&:new)
             Lookup.new(backend_instances)
           end
         end
