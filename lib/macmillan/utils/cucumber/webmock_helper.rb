@@ -1,7 +1,7 @@
 require 'webmock/cucumber'
 
 Before do
-  WebMock.disable_net_connect!(allow_localhost: true, allow: /capybara-local/)
+  WebMock.disable_net_connect!(allow_localhost: true, allow: [/capybara-local/, /codeclimate/])
 end
 
 After do
