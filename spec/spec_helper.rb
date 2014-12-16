@@ -4,6 +4,7 @@ require 'bundler'
 Bundler.setup(:default, :test)
 
 require 'macmillan/utils/rspec/rspec_defaults'
+require 'macmillan/utils/rspec/rack_test_helper'
 require 'macmillan/utils/test_helpers/simplecov_helper'
 
 require 'pry'
