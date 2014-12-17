@@ -1,3 +1,5 @@
+require 'set'
+
 module Macmillan
   module Utils
     ##
@@ -42,19 +44,19 @@ module Macmillan
 
       def call(env)
         # Setup env
-        env[TIMERS]     = ['request']
-        env[INCREMENTS] = ['request']
+        env[TIMERS]     = Set.new(['request'])
+        env[INCREMENTS] = Set.new(['request'])
 
         # Run request
         (status, headers, body), response_time = call_with_timing(env)
 
         # Record metrics - timers
-        Array(env[TIMERS]).each do |key|
+        env[TIMERS].each do |key|
           @client.timing("#{NAMESPACE}.#{key}", response_time)
         end
 
         # Record metrics - increments
-        Array(env[INCREMENTS]).each do |key|
+        env[INCREMENTS].each do |key|
           @client.increment("#{NAMESPACE}.#{key}")
           @client.increment("#{NAMESPACE}.#{key}.status_code.#{status}")
         end
