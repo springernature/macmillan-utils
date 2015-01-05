@@ -1,10 +1,9 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'macmillan/utils/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'macmillan-utils'
-  spec.version       = Macmillan::Utils::VERSION
+  spec.version       = "0.1.#{ENV['BUILD_NUMBER'] || 'dev'}"
   spec.authors       = ['Darren Oakley']
   spec.email         = ['daz.oakley@gmail.com']
   spec.summary       = 'A collection of useful patterns we (Macmillan Science and Education) use in our Ruby applications.'
@@ -18,6 +17,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.6'
   spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'geminabox'
   spec.add_development_dependency 'rack-test'
 
   spec.add_dependency 'rspec'
