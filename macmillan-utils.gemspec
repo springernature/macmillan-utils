@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'geminabox'
   spec.add_development_dependency 'rack-test'
 
   spec.add_dependency 'rspec'
@@ -30,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'multi_test'
   spec.add_dependency 'syslog-logger'
   spec.add_dependency 'rubocop'
+  spec.add_dependency 'geminabox'
 end
