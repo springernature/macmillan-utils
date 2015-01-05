@@ -20,3 +20,4 @@ tmp
 *.a
 mkmf.log
 RBENV_VERSION*
+Gemfile.lock
