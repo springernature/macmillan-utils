@@ -55,7 +55,7 @@ module Macmillan
 
         [status, headers, body]
       rescue => error
-        increment('exception')
+        @client.increment("#{NAMESPACE}.exception")
         raise error
       end
 
@@ -68,12 +68,12 @@ module Macmillan
 
       def record_metrics(env, status, response_time)
         env[TIMERS].each do |key|
-          @client.timing("#{NAMESPACE}.#{key}", response_time)
+          @client.timing("#{NAMESPACE}.timers.#{key}", response_time)
         end
 
         env[INCREMENTS].each do |key|
-          increment("#{key}")
-          increment("#{key}.status_code.#{status}")
+          @client.increment("#{NAMESPACE}.increments.#{key}")
+          @client.increment("#{NAMESPACE}.http_status.#{key}.#{status}")
         end
       end
 
@@ -81,10 +81,6 @@ module Macmillan
         start  = Time.now
         result = @app.call(env)
         [result, ((Time.now - start) * 1000).round]
-      end
-
-      def increment(label)
-        @client.increment("#{NAMESPACE}.#{label}")
       end
     end
   end

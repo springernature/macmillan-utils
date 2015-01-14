@@ -9,17 +9,17 @@ describe Macmillan::Utils::StatsdMiddleware do
 
   it 'sends an increment metric for the status_code' do
     subject.call(request.env)
-    expect(statsd_client).to have_received(:increment).with('rack.request.status_code.200').once
+    expect(statsd_client).to have_received(:increment).with('rack.http_status.request.200').once
   end
 
   it 'sends an increment metric for all requests' do
     subject.call(request.env)
-    expect(statsd_client).to have_received(:increment).with('rack.request').once
+    expect(statsd_client).to have_received(:increment).with('rack.increments.request').once
   end
 
   it 'sends a timing metric for all requests' do
     subject.call(request.env)
-    expect(statsd_client).to have_received(:timing).with('rack.request', anything).once
+    expect(statsd_client).to have_received(:timing).with('rack.timers.request', anything).once
   end
 
   context 'when extra metrics have been pushed into the env' do
@@ -34,9 +34,9 @@ describe Macmillan::Utils::StatsdMiddleware do
 
     it 'sends these to statsd' do
       subject.call(request.env)
-      expect(statsd_client).to have_received(:timing).with('rack.foo.bar', anything).once
-      expect(statsd_client).to have_received(:increment).with('rack.woo.waa').once
-      expect(statsd_client).to have_received(:increment).with('rack.woo.waa.status_code.200').once
+      expect(statsd_client).to have_received(:timing).with('rack.timers.foo.bar', anything).once
+      expect(statsd_client).to have_received(:increment).with('rack.increments.woo.waa').once
+      expect(statsd_client).to have_received(:increment).with('rack.http_status.woo.waa.200').once
     end
   end
 
