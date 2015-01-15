@@ -7,6 +7,7 @@ module Macmillan
   #
   module Utils
     autoload :Logger,                 'macmillan/utils/logger'
+    autoload :Middleware,             'macmillan/utils/middleware'
     autoload :Settings,               'macmillan/utils/settings'
     autoload :StatsdDecorator,        'macmillan/utils/statsd_decorator'
     autoload :StatsdMiddleware,       'macmillan/utils/statsd_middleware'
