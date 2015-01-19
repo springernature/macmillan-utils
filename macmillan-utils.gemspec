@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Macmillan Science and Education (New Publsihing Platforms)']
   spec.email         = ['npp-developers@macmillan.com']
   spec.summary       = 'A collection of useful patterns we (Macmillan Science and Education) use in our Ruby applications.'
-  spec.homepage      = 'http://cruft.io/'
+  spec.homepage      = 'https://github.com/nature/macmillan-utils'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
