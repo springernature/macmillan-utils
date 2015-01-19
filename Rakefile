@@ -1,5 +1,4 @@
 require 'bundler/gem_tasks'
-require 'macmillan/utils/bundler/gem_helper'
 require 'rspec/core/rake_task'
 require 'yard'
 
