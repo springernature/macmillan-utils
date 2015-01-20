@@ -23,8 +23,9 @@ module Macmillan
     # By default this middleware will record timer and increment stats for all requests under
     # the statsd/graphite namespace 'rack.' - i.e.
     #
-    # * rack.request - timers and increment per request
-    # * rack.status_code.<status code> - increment per request
+    # * rack.timers.request - timers per request
+    # * rack.increments.request - increments per request
+    # * rack.http_status.request.<status code> - increment per request
     # * rack.exception - increment upon error
     #
     # Facilities are provided via {Macmillan::Utils::StatsdControllerHelper} to also log
