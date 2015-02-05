@@ -30,4 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'syslog-logger'
   spec.add_dependency 'rubocop'
   spec.add_dependency 'geminabox'
+  spec.add_dependency 'pronto'
+  spec.add_dependency 'pronto-rubocop'
+  spec.add_dependency 'pronto-brakeman'
 end
