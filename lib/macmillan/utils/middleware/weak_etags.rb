@@ -24,8 +24,7 @@ module Macmillan
             env['HTTP_IF_NONE_MATCH'] = etag.gsub(/^W\//, '')
           end
 
-          status, headers, body = @app.call(env)
-          [status, headers, body]
+          @app.call(env)
         end
       end
     end
