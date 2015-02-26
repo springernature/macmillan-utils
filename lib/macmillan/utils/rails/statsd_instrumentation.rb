@@ -54,11 +54,11 @@ ActiveSupport::Notifications.subscribe /process_action.action_controller/ do |*a
     $statsd.timing('response_time', event.duration)
 
     $statsd.timing("#{key}.response_time", event.duration)
-    $statsd.timing("#{key}.db_time", event.payload[:db_runtime])
-    $statsd.timing("#{key}.view_time", event.payload[:view_runtime])
+    $statsd.timing("#{key}.db_time", event.payload[:db_runtime]) if event.payload[:db_runtime]
+    $statsd.timing("#{key}.view_time", event.payload[:view_runtime]) if event.payload[:view_runtime]
 
     $statsd.timing("#{key}.#{hostname}.response_time", event.duration)
-    $statsd.timing("#{key}.#{hostname}.db_time", event.payload[:db_runtime])
-    $statsd.timing("#{key}.#{hostname}.view_time", event.payload[:view_runtime])
+    $statsd.timing("#{key}.#{hostname}.db_time", event.payload[:db_runtime]) if event.payload[:db_runtime]
+    $statsd.timing("#{key}.#{hostname}.view_time", event.payload[:view_runtime]) if event.payload[:view_runtime]
   end
 end
