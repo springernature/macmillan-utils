@@ -43,6 +43,7 @@ module Macmillan
 
           def finish
             save_cookie if store_cookie?
+            clean_old_cookies
             response.finish
           end
 
@@ -72,6 +73,12 @@ module Macmillan
 
           def save_cookie
             response.set_cookie(cookie_key, { value: user_uuid, path: '/', expires: DateTime.now.next_year.to_time })
+          end
+
+          def clean_old_cookies
+            response.delete_cookie('bandiera.uuid') if request.cookies['bandiera.uuid']
+            response.delete_cookie('sherlock.uuid') if request.cookies['sherlock.uuid']
+            response.delete_cookie('sixpack.uuid') if request.cookies['sixpack.uuid']
           end
         end
 
