@@ -22,16 +22,10 @@ RSpec::Matchers.define :be_valid_mosaic do
 
   def output
     @output ||= begin
-      file = Tempfile.open(["mojson_output", '.json'])
-      file.write(actual)
-      file.close
-      JSON.parse(`mojson -f #{file.path} --reporter json`)
+      JSON.parse(`echo #{actual.to_json} | mojson --reporter json`)
     rescue Errno::ENOENT
       raise 'Error be_valid_mosaic requires mojson binary' \
       'see: https://github.com/nature/mosaic-json'
-    ensure
-      file.close
-      file.unlink
     end
   end
 
