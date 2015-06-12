@@ -12,5 +12,6 @@ module Macmillan
     autoload :StatsdDecorator,        'macmillan/utils/statsd_decorator'
     autoload :StatsdMiddleware,       'macmillan/utils/statsd_middleware'
     autoload :StatsdControllerHelper, 'macmillan/utils/statsd_controller_helper'
+    autoload :Helper,                 'macmillan/utils/helper'
   end
 end
