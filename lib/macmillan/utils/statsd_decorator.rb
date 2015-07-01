@@ -76,11 +76,10 @@ module Macmillan
         super if send_to_delegatee?
       end
 
-      def time(stat, sample_rate = 1, &block)
+      def time(stat, sample_rate = 1)
         start    = Time.now
-        result   = block.call
-        duration = ((Time.now - start) * 1000).round
-        timing(stat, duration, sample_rate)
+        result   = yield
+        timing(stat, ((Time.now - start) * 1000).round, sample_rate)
         result
       end
 
