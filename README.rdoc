@@ -5,6 +5,7 @@ A collection of useful patterns we use in our Ruby applications.
 {<img src="https://travis-ci.org/nature/macmillan-utils.svg?branch=log-formatter" alt="Build Status" />}[https://travis-ci.org/nature/macmillan-utils]
 {<img src="https://codeclimate.com/github/nature/macmillan-utils.png" alt="CodeClimate Rating" />}[https://codeclimate.com/github/nature/macmillan-utils]
 {<img src="https://codeclimate.com/github/nature/macmillan-utils/coverage.png" alt="Test Coverage" />}[https://codeclimate.com/github/nature/macmillan-utils]
+{<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT Licensed" />}[https://github.com/nature/macmillan-utils/blob/master/LICENSE]
 
 == Installation
 
@@ -110,4 +111,3 @@ Add the following to the top of your `env.rb`:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
