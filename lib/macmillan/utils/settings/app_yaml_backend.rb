@@ -5,15 +5,12 @@ module Macmillan
     module Settings
       class AppYamlBackend
         def get(key)
-          return build_value(key) if yaml.key?(key)
-          KeyNotFound.new(key, self, key)
+          backend_key = key.to_s.downcase
+          return KeyNotFound.new(key, self, backend_key) unless yaml.key?(backend_key)
+          Value.new(key, yaml[backend_key], self, backend_key)
         end
 
         private
-
-        def build_value(key)
-          Value.new(key, yaml[key], self, key)
-        end
 
         def yaml
           @yaml ||= begin
