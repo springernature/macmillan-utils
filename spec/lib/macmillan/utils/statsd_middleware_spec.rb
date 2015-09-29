@@ -44,7 +44,7 @@ describe Macmillan::Utils::StatsdMiddleware do
     let(:app) { ->(env) { raise } }
 
     it 'sends an exception increment to statsd and raises the error' do
-      expect { subject.call(request.env) }.to raise_error
+      expect { subject.call(request.env) }.to raise_error(RuntimeError)
       expect(statsd_client).to have_received(:increment).with('rack.exception').once
     end
   end

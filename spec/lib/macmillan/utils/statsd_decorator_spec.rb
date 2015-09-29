@@ -50,7 +50,7 @@ describe Macmillan::Utils::StatsdDecorator do
 
   describe '#time' do
     it 'should require a block' do
-      expect { subject.time(stat_name) }.to raise_error
+      expect { subject.time(stat_name) }.to raise_error(LocalJumpError)
     end
 
     it 'should call the block' do
