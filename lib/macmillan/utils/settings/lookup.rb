@@ -7,17 +7,12 @@ module Macmillan
         end
 
         def lookup(key)
-          value = nil
-
           @backends.each do |backend|
-            break if value
             result = backend.get(key)
-            value  = result.value unless result.is_a?(KeyNotFound)
+            return result.value unless result.is_a?(KeyNotFound)
           end
 
-          fail KeyNotFoundError.new("Cannot find a settings value for #{key}") unless value
-
-          value
+          fail KeyNotFoundError.new("Cannot find a settings value for #{key}")
         end
 
         # Backwards compatibility: in the past this has been used like a Hash
