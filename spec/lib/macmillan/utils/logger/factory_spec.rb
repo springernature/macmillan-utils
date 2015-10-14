@@ -32,7 +32,9 @@ describe Macmillan::Utils::Logger::Factory do
       end
 
       it 'allows you to configure the log target' do
-        expect(Logger).to receive(:new).with('foo.log').and_call_original
+        logger = double('logger').as_null_object
+        expect(Logger).to receive(:new).with('foo.log').and_return(logger)
+
         Macmillan::Utils::Logger::Factory.build_logger(:logger, target: 'foo.log')
       end
     end
