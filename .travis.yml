@@ -1,3 +1,5 @@
+sudo: false
+
 language: ruby
 cache: bundler
 rvm:
@@ -8,10 +10,15 @@ rvm:
   - 2.3.0
   - jruby-19mode
   - rbx-2
+
+# Ensure we don't build for *every* commit (doesn't apply to PR builds)
+branches:
+  only:
+  - master
+
 env:
   global:
     - USE_SIMPLECOV=true
-    - CODECLIMATE_REPO_TOKEN=2175628fb41494d45b50b6938600a53c130e1f7ac3b81b072bb71e91073a5e4a
-addons:
-  code_climate:
-    repo_token: 2175628fb41494d45b50b6938600a53c130e1f7ac3b81b072bb71e91073a5e4a
+
+before_install:
+  - gem update bundler
