@@ -2,10 +2,10 @@
 
 A collection of useful patterns we use in our Ruby applications.
 
-{<img src="https://travis-ci.org/nature/macmillan-utils.svg?branch=log-formatter" alt="Build Status" />}[https://travis-ci.org/nature/macmillan-utils]
-{<img src="https://codeclimate.com/github/nature/macmillan-utils.png" alt="CodeClimate Rating" />}[https://codeclimate.com/github/nature/macmillan-utils]
-{<img src="https://codeclimate.com/github/nature/macmillan-utils/coverage.png" alt="Test Coverage" />}[https://codeclimate.com/github/nature/macmillan-utils]
-{<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT Licensed" />}[https://github.com/nature/macmillan-utils/blob/master/LICENSE]
+{<img src="https://travis-ci.org/springernature/macmillan-utils.svg?branch=log-formatter" alt="Build Status" />}[https://travis-ci.org/springernature/macmillan-utils]
+{<img src="https://codeclimate.com/github/springernature/macmillan-utils.png" alt="CodeClimate Rating" />}[https://codeclimate.com/github/springernature/macmillan-utils]
+{<img src="https://codeclimate.com/github/springernature/macmillan-utils/coverage.png" alt="Test Coverage" />}[https://codeclimate.com/github/springernature/macmillan-utils]
+{<img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT Licensed" />}[https://github.com/springernature/macmillan-utils/blob/master/LICENSE]
 
 == Installation
 
@@ -106,7 +106,7 @@ Add the following to the top of your `env.rb`:
 
 == Contributing
 
-1. Fork it ( https://github.com/nature/macmillan-utils/fork )
+1. Fork it ( https://github.com/springernature/macmillan-utils/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
