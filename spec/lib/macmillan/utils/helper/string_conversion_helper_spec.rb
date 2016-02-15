@@ -18,8 +18,8 @@ describe Macmillan::Utils::Helper::StringConversionHelper do
   end
 
   describe '#upper_camelcase_string' do
-    let(:spacey_string)      {'I feel spaced out'}
-    let(:underscorey_string) {'i_feel_under_scored'}
+    let(:spacey_string)      { 'I feel spaced out' }
+    let(:underscorey_string) { 'i_feel_under_scored' }
 
     it 'converts a string containing spaces to upper camelcase' do
       expect(upper_camelcase_string(spacey_string)).to eq('IFeelSpacedOut')
@@ -31,7 +31,7 @@ describe Macmillan::Utils::Helper::StringConversionHelper do
   end
 
   describe '#camelcase_to_snakecase_symbol' do
-    let(:camel) {'LookAtThisHumpyOldCamel'}
+    let(:camel) { 'LookAtThisHumpyOldCamel' }
 
     it 'converts a camelcase string to a snakecase symbol equivalent' do
       expect(camelcase_to_snakecase_symbol(camel)).to eq(:look_at_this_humpy_old_camel)

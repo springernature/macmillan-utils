@@ -28,7 +28,7 @@ def check_rubocop_and_hound
       file.print latest_rubocop_conf
     end
 
-    fail RuntimeError, '...'
+    raise '...'
   end
 end
 
