@@ -3,11 +3,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'macmillan-utils'
-  spec.version       = "1.0.#{ENV['BUILD_NUMBER'] || 'dev'}"
-  spec.authors       = ['Macmillan Science and Education (New Publsihing Platforms)']
+  spec.version       = "1.0.#{ENV['TRAVIS_BUILD_NUMBER'] || ENV['BUILD_NUMBER'] || 'dev'}"
+  spec.authors       = ['Springer Nature']
   spec.email         = ['npp-developers@macmillan.com']
-  spec.summary       = 'A collection of useful patterns we (Macmillan Science and Education) use in our Ruby applications.'
-  spec.homepage      = 'https://github.com/nature/macmillan-utils'
+  spec.summary       = 'A collection of useful patterns we (Springer Nature) use in our Ruby applications.'
+  spec.homepage      = 'https://github.com/springernature/macmillan-utils'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")

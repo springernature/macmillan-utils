@@ -47,7 +47,7 @@ describe Macmillan::Utils::Logger::Formatter do
 
     context 'when the log message is NOT a string or exception' do
       it 'retuns object.inspect' do
-        ex = Array.new
+        ex = []
         expect(ex).to receive(:inspect).once
 
         logger.info ex

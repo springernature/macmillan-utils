@@ -24,7 +24,7 @@ describe Macmillan::Utils::StatsdMiddleware do
 
   context 'when extra metrics have been pushed into the env' do
     let(:app) do
-      ->(env) do
+      lambda do |env|
         env['statsd.timers']     << 'foo.bar'
         env['statsd.increments'] << 'woo.waa'
 
@@ -41,7 +41,7 @@ describe Macmillan::Utils::StatsdMiddleware do
   end
 
   context 'upon error' do
-    let(:app) { ->(env) { raise } }
+    let(:app) { ->(_env) { raise } }
 
     it 'sends an exception increment to statsd and raises the error' do
       expect { subject.call(request.env) }.to raise_error(RuntimeError)

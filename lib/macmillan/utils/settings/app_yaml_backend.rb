@@ -31,7 +31,7 @@ module Macmillan
             found_path  = search_file if File.exist?(search_file)
           end
 
-          fail 'cannot find application.yml' if found_path.nil?
+          raise 'cannot find application.yml' if found_path.nil?
 
           found_path
         end

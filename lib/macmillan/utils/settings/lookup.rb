@@ -12,12 +12,12 @@ module Macmillan
             return result.value unless result.is_a?(KeyNotFound)
           end
 
-          fail KeyNotFoundError.new("Cannot find a settings value for #{key}")
+          raise KeyNotFoundError.new("Cannot find a settings value for #{key}")
         end
 
         # Backwards compatibility: in the past this has been used like a Hash
-        alias_method :[], :lookup
-        alias_method :fetch, :lookup
+        alias [] lookup
+        alias fetch lookup
       end
     end
   end

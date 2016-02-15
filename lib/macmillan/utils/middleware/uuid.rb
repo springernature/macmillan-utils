@@ -15,7 +15,7 @@ module Macmillan
           'user.uuid'
         end
 
-        def initialize(app, opts={})
+        def initialize(app, opts = {})
           @app            = app
           @user_env_key   = opts[:user_env_key] || 'current_user'
           @user_id_method = opts[:user_id_method] || 'user_id'

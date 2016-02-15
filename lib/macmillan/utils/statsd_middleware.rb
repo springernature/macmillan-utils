@@ -37,7 +37,7 @@ module Macmillan
       INCREMENTS = 'statsd.increments'.freeze
 
       def initialize(app, opts = {})
-        fail ArgumentError, 'You must supply a StatsD client' unless opts[:client]
+        raise ArgumentError, 'You must supply a StatsD client' unless opts[:client]
 
         @app    = app
         @client = opts[:client]
