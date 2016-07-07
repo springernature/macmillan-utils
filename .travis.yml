@@ -3,13 +3,12 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
-  - 1.9.3
   - 2.0
   - 2.1
   - 2.2
   - 2.3.0
   - jruby-19mode
-  - rbx-2
+  - rbx
 
 # Ensure we don't build for *every* commit (doesn't apply to PR builds)
 branches:
