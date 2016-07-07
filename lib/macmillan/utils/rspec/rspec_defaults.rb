@@ -1,14 +1,27 @@
 def check_rubocop_and_hound
   # ASSUMPTION: We are running the RSpec suite from the root of a project tree
-  update_rubocop     = true
-  rubocop_file       = '.rubocop.yml'
-  local_rubocop_file = File.join(Dir.getwd, rubocop_file)
-  local_hound_file   = File.join(Dir.getwd, '.hound.yml')
+  update_rubocop       = true
+  rubocop_file         = '.rubocop.yml'
+  local_rubocop_file   = File.join(Dir.getwd, rubocop_file)
+  local_hound_file     = File.join(Dir.getwd, '.hound.yml')
+  latest_rubocop_file  = File.expand_path("../../../../../#{rubocop_file}", __FILE__)
 
   if File.exist?(local_rubocop_file)
-    latest_rubocop_conf  = File.read(File.expand_path("../../../../../#{rubocop_file}", __FILE__))
+    latest_rubocop_conf  = File.read(latest_rubocop_file)
     current_rubocop_conf = File.read(local_rubocop_file)
     update_rubocop       = false if current_rubocop_conf == latest_rubocop_conf
+  end
+
+  if update_rubocop
+    puts ''
+    puts 'WARNING: You do not have the latest set of rubocop style preferences.'
+    puts "         latest_rubocop_file: #{latest_rubocop_file}"
+    puts "         local_rubocop_file:  #{local_rubocop_file}"
+    puts 'diff:'
+    puts ''
+    puts `diff #{latest_rubocop_file} #{local_rubocop_file}`
+    puts ''
+
   end
 
   if !File.exist?(local_hound_file) || !File.symlink?(local_hound_file)
@@ -28,7 +41,7 @@ def check_rubocop_and_hound
       file.print latest_rubocop_conf
     end
 
-    raise '...'
+    raise 'rubocop file was out of date'
   end
 end
 

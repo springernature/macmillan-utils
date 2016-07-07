@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rack-test'
 
+  spec.add_dependency 'rack', '< 2.0' # going to 2.0.x forces us to drop ruby 2.1 support
   spec.add_dependency 'rspec'
   spec.add_dependency 'simplecov'
   spec.add_dependency 'simplecov-rcov'
