@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard'
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'rack-test'
+  spec.add_development_dependency 'rack', '< 2.0.0'
 
   spec.add_dependency 'rspec'
   spec.add_dependency 'simplecov'
