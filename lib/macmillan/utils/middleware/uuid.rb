@@ -34,6 +34,14 @@ module Macmillan
             env[cookie_key] = final_user_uuid
           end
 
+          def finish
+            save_cookie if store_cookie?
+            clean_old_cookies
+            response.finish
+          end
+
+          private
+
           def response
             @response ||= begin
                             status, headers, body = app.call(request.env)
@@ -41,26 +49,16 @@ module Macmillan
                           end
           end
 
-          def finish
-            save_cookie if store_cookie?
-            clean_old_cookies
-            response.finish
-          end
-
           def user
             request.env[user_env_key]
           end
 
+          def user_hexdigest
+            Digest::SHA1.hexdigest(user.public_send(user_id_method).to_s) if user
+          end
+
           def final_user_uuid
-            @final_user_uuid ||= begin
-                             if user
-                               Digest::SHA1.hexdigest(user.public_send(user_id_method).to_s)
-                             elsif uuid_from_cookies
-                               uuid_from_cookies
-                             else
-                               SecureRandom.uuid
-                             end
-                           end
+            @final_user_uuid ||= user_hexdigest || uuid_from_cookies || SecureRandom.uuid
           end
 
           def uuid_from_cookies
