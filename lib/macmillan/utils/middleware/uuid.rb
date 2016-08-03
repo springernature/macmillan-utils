@@ -72,7 +72,8 @@ module Macmillan
           end
 
           def save_cookie
-            response.set_cookie(cookie_key, { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time })
+            cookie_value = { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time }
+            response.set_cookie(cookie_key, cookie_value)
           end
 
           def clean_old_cookies
