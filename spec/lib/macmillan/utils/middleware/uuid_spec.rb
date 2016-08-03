@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Macmillan::Utils::Middleware::Uuid do
-  let(:app)             { ->(env) { [200, env, 'app'] } }
+  let(:app)             { ->(_env) { app_return } }
+  let(:app_return)      { [200, {}, ['app']] }
   let(:request)         { req_for('http://example.com') }
   let(:user)            { double(email: 'bob.flemming@cough.com', user_id: '12345') }
   let(:user_uuid)       { Digest::SHA1.hexdigest(user.user_id.to_s) }
@@ -20,8 +21,8 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
       end
 
       it 'stores the user_uuid in the env' do
-        _status, headers, _body = subject.call(request.env)
-        expect(headers['user.uuid']).to eq(user_uuid)
+        expect(app).to receive(:call).with(hash_including('user.uuid' => user_uuid)).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
       end
     end
 
@@ -45,8 +46,8 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
 
     context 'who has not visited before' do
       it 'stores the auto-generated UUID in the env' do
-        _status, headers, _body = subject.call(request.env)
-        expect(headers['user.uuid']).to eq('wibble')
+        expect(app).to receive(:call).with(hash_including('user.uuid' => 'wibble')).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
       end
 
       it 'sets the user_uuid cookie' do
@@ -61,8 +62,8 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
       end
 
       it 'stores the user_uuid (from the cookie) in the env' do
-        _status, headers, _body = subject.call(request.env)
-        expect(headers['user.uuid']).to eq('qwerty')
+        expect(app).to receive(:call).with(hash_including('user.uuid' => 'qwerty')).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
       end
 
       it 'does not try to replace the cookie' do
