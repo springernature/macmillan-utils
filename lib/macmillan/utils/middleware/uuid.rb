@@ -31,7 +31,7 @@ module Macmillan
             @user_id_method = user_id_method
             @cookie_key     = cookie_key
 
-            env[cookie_key] = user_uuid
+            env[cookie_key] = final_user_uuid
           end
 
           def response
@@ -51,28 +51,28 @@ module Macmillan
             request.env[user_env_key]
           end
 
-          def user_uuid
-            @user_uuid ||= begin
+          def final_user_uuid
+            @final_user_uuid ||= begin
                              if user
                                Digest::SHA1.hexdigest(user.public_send(user_id_method).to_s)
-                             elsif cookie_uuid
-                               cookie_uuid
+                             elsif uuid_from_cookies
+                               uuid_from_cookies
                              else
                                SecureRandom.uuid
                              end
                            end
           end
 
-          def cookie_uuid
+          def uuid_from_cookies
             request.cookies[cookie_key]
           end
 
           def store_cookie?
-            user_uuid != cookie_uuid
+            final_user_uuid != uuid_from_cookies
           end
 
           def save_cookie
-            response.set_cookie(cookie_key, { value: user_uuid, path: '/', expires: DateTime.now.next_year.to_time })
+            response.set_cookie(cookie_key, { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time })
           end
 
           def clean_old_cookies
