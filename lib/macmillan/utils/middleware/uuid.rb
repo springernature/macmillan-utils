@@ -22,7 +22,7 @@ module Macmillan
         end
 
         class CallHandler
-          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key, :rack_errors
+          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key, :rack_errors, :uuid_is_new_key
 
           def initialize(env, app, user_env_key, user_id_method, cookie_key)
             @app            = app
@@ -31,8 +31,10 @@ module Macmillan
             @user_id_method = user_id_method
             @cookie_key     = cookie_key
             @rack_errors    = env['rack.errors']
+            @uuid_is_new_key = "#{cookie_key}_is_new"
 
-            env[cookie_key] = final_user_uuid
+            env[cookie_key]      = final_user_uuid
+            env[uuid_is_new_key] = true if uuid_is_new?
           end
 
           def finish
@@ -69,6 +71,7 @@ module Macmillan
           def store_cookie?
             final_user_uuid != uuid_from_cookies
           end
+          alias_method :uuid_is_new?, :store_cookie?
 
           def save_cookie
             cookie_value = { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time }

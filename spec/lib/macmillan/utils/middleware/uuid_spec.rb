@@ -24,6 +24,11 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
         expect(app).to receive(:call).with(hash_including('user.uuid' => user_uuid)).and_return(app_return)
         _status, _headers, _body = subject.call(request.env)
       end
+
+      it 'tells following rack app the user_uuid is new' do
+        expect(app).to receive(:call).with(hash_including('user.uuid_is_new' => true)).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
+      end
     end
 
     context 'who also has a randomly assigned user_uuid cookie (from a previous non-authenticated session)' do
@@ -34,6 +39,11 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
       it 'replaces this cookie with one based on the users user_id' do
         _status, headers, _body = subject.call(request.env)
         expect(headers['Set-Cookie']).to include("user.uuid=#{user_uuid}")
+      end
+
+      it 'tells following rack app the user_uuid is new' do
+        expect(app).to receive(:call).with(hash_including('user.uuid_is_new' => true)).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
       end
     end
   end
@@ -54,6 +64,11 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
         _status, headers, _body = subject.call(request.env)
         expect(headers['Set-Cookie']).to include('user.uuid=wibble')
       end
+
+      it 'tells following rack app the user_uuid is new' do
+        expect(app).to receive(:call).with(hash_including('user.uuid_is_new' => true)).and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
+      end
     end
 
     context 'who has visited before and has a user_uuid cookie' do
@@ -69,6 +84,13 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
       it 'does not try to replace the cookie' do
         _status, headers, _body = subject.call(request.env)
         expect(headers['Set-Cookie']).to be_nil
+      end
+
+      it 'does not tell following rack app the user_uuid is new' do
+        expect(app).to receive(:call) do |args|
+          expect(args).not_to have_key('user.uuid_is_new')
+        end.and_return(app_return)
+        _status, _headers, _body = subject.call(request.env)
       end
     end
   end
