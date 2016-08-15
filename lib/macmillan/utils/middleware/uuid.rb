@@ -22,7 +22,7 @@ module Macmillan
         end
 
         class CallHandler
-          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key
+          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key, :rack_errors
 
           def initialize(env, app, user_env_key, user_id_method, cookie_key)
             @app            = app
@@ -30,6 +30,7 @@ module Macmillan
             @user_env_key   = user_env_key
             @user_id_method = user_id_method
             @cookie_key     = cookie_key
+            @rack_errors    = env['rack.errors']
 
             env[cookie_key] = final_user_uuid
           end
