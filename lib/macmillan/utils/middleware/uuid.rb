@@ -22,7 +22,7 @@ module Macmillan
         end
 
         class CallHandler
-          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key
+          attr_reader :app, :request, :user_env_key, :user_id_method, :cookie_key, :rack_errors, :uuid_is_new_key
 
           def initialize(env, app, user_env_key, user_id_method, cookie_key)
             @app            = app
@@ -30,15 +30,11 @@ module Macmillan
             @user_env_key   = user_env_key
             @user_id_method = user_id_method
             @cookie_key     = cookie_key
+            @rack_errors    = env['rack.errors']
+            @uuid_is_new_key = "#{cookie_key}_is_new"
 
-            env[cookie_key] = final_user_uuid
-          end
-
-          def response
-            @response ||= begin
-                            status, headers, body = app.call(request.env)
-                            Rack::Response.new(body, status, headers)
-                          end
+            env[cookie_key]      = final_user_uuid
+            env[uuid_is_new_key] = true if uuid_is_new?
           end
 
           def finish
@@ -47,20 +43,25 @@ module Macmillan
             response.finish
           end
 
+          private
+
+          def response
+            @response ||= begin
+                            status, headers, body = app.call(request.env)
+                            Rack::Response.new(body, status, headers)
+                          end
+          end
+
           def user
             request.env[user_env_key]
           end
 
+          def user_hexdigest
+            Digest::SHA1.hexdigest(user.public_send(user_id_method).to_s) if user
+          end
+
           def final_user_uuid
-            @final_user_uuid ||= begin
-                             if user
-                               Digest::SHA1.hexdigest(user.public_send(user_id_method).to_s)
-                             elsif uuid_from_cookies
-                               uuid_from_cookies
-                             else
-                               SecureRandom.uuid
-                             end
-                           end
+            @final_user_uuid ||= user_hexdigest || uuid_from_cookies || SecureRandom.uuid
           end
 
           def uuid_from_cookies
@@ -70,6 +71,7 @@ module Macmillan
           def store_cookie?
             final_user_uuid != uuid_from_cookies
           end
+          alias_method :uuid_is_new?, :store_cookie?
 
           def save_cookie
             cookie_value = { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time }
