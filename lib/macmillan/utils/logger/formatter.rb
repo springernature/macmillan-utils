@@ -19,7 +19,7 @@ module Macmillan
         # @return [Formatter] the configured formatter object
         #
         def initialize(prefix = nil)
-          @format = "[%5s]: %s\n"
+          @format = '[%5s]: %s'
           @format = "#{prefix} #{@format}" if prefix
         end
 

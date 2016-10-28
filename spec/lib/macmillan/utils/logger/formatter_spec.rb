@@ -24,14 +24,14 @@ describe Macmillan::Utils::Logger::Formatter do
       let(:prefix) { 'WEEEE' }
 
       it 'is put in front of the log message' do
-        expect(target).to receive(:write).with("#{prefix} [ INFO]: #{msg}\n").once
+        expect(target).to receive(:write).with("#{prefix} [ INFO]: #{msg}").once
         logger.info msg
       end
     end
 
     context 'when the log message is a string' do
       it 'returns the string' do
-        expect(target).to receive(:write).with("[ INFO]: #{msg}\n").once
+        expect(target).to receive(:write).with("[ INFO]: #{msg}").once
         logger.info msg
       end
     end
@@ -40,7 +40,7 @@ describe Macmillan::Utils::Logger::Formatter do
       it 'returns full details of the exception' do
         ex = StandardError.new('qwerty')
         allow(ex).to receive(:backtrace).and_return(%w(foo bar baz quux))
-        expect(target).to receive(:write).with("[ INFO]: qwerty (StandardError)\nfoo\nbar\nbaz\nquux\n").once
+        expect(target).to receive(:write).with("[ INFO]: qwerty (StandardError)\nfoo\nbar\nbaz\nquux").once
         logger.info ex
       end
     end
