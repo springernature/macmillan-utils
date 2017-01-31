@@ -31,25 +31,6 @@ Style/AlignParameters:
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
-Style/PercentLiteralDelimiters:
-  PreferredDelimiters:
-    '%':  ()
-    '%i': ()
-    '%I': ()
-    '%q': ()
-    '%Q': ()
-    '%r': '{}'
-    '%s': ()
-    '%w': '[]'
-    '%W': '[]'
-    '%x': ()
-
-Style/RegexpLiteral:
-  AllowInnerSlashes: true
-
 Style/CollectionMethods:
   PreferredMethods:
     collect: 'map'
