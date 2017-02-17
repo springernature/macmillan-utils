@@ -14,10 +14,10 @@ module Macmillan
         end
 
         def call(env)
-          request = Rack::Request.new(env)
+          @request = Rack::Request.new(env)
 
-          if cookies_accepted?(request)
-            redirect_back(request)
+          if cookies_accepted?(@request)
+            redirect_back(@request)
           else
             @app.call(env)
           end
@@ -26,16 +26,33 @@ module Macmillan
         private
 
         def cookies_accepted?(request)
+
+          debug_log("request.post? IS #{request.post?.inspect}")
+          debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE]}")
+          debug_log("request.params['cookies'] IS #{request.params['cookies']}")
+
           unless request.post?
+            debug_log("request.post? means pass-thru")
             return false
           end
           unless request.cookies[COOKIE] != 'accepted'
+            debug_log("request.cookies[#{COOKIE}] means passthru")
             return false
           end
           unless request.params['cookies'] == 'accepted'
+            debug_log("request.params['cookies'] means passthru")
             return false
           end
+          debug_log("About to set the acceptance cookie and redirect")
           true
+        end
+
+        def debug_log(msg)
+          logger.debug("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
+        end
+
+        def logger
+          @logger ||= @request.logger || NullLogger.new
         end
 
         def redirect_back(request)
@@ -71,6 +88,12 @@ module Macmillan
 
         def internal_redirect?(request, uri)
           request.host == uri.host && request.port == uri.port
+        end
+
+        class NullLogger
+          def method_missing(*args)
+            nil
+          end
         end
       end
     end
