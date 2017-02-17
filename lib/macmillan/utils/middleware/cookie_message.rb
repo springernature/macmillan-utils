@@ -26,9 +26,16 @@ module Macmillan
         private
 
         def cookies_accepted?(request)
-          request.post? &&
-            request.cookies[COOKIE] != 'accepted' &&
-            request.params['cookies'] == 'accepted'
+          unless request.post?
+            return false
+          end
+          unless request.cookies[COOKIE] != 'accepted'
+            return false
+          end
+          unless request.params['cookies'] == 'accepted'
+            return false
+          end
+          true
         end
 
         def redirect_back(request)
