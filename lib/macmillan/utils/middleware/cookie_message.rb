@@ -59,6 +59,8 @@ module Macmillan
           response = Rack::Response.new
           location = build_location(request)
 
+          debug_log("Redirecting to #{location}")
+
           response.redirect(location)
           response.set_cookie(COOKIE, cookie_options(request))
 
