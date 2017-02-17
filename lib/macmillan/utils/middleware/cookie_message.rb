@@ -27,28 +27,28 @@ module Macmillan
 
         def cookies_accepted?(request)
 
-          debug_log("request.post? IS #{request.post?.inspect}")
-          debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE]}")
+          debug_log('request.post? IS #{request.post?.inspect}')
+          debug_log('request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE]}')
           debug_log("request.params['cookies'] IS #{request.params['cookies']}")
 
           unless request.post?
-            debug_log("request.post? means pass-thru")
+            debug_log('request.post? means pass-thru')
             return false
           end
           unless request.cookies[COOKIE] != 'accepted'
-            debug_log("request.cookies[#{COOKIE}] means passthru")
+            debug_log('request.cookies[#{COOKIE}] means passthru')
             return false
           end
           unless request.params['cookies'] == 'accepted'
             debug_log("request.params['cookies'] means passthru")
             return false
           end
-          debug_log("About to set the acceptance cookie and redirect")
+          debug_log('About to set the acceptance cookie and redirect')
           true
         end
 
         def debug_log(msg)
-          logger.debug("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
+          logger.info("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
         end
 
         def logger
