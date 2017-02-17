@@ -32,23 +32,23 @@ module Macmillan
           debug_log("request.params['cookies'] IS #{request.params['cookies']}")
 
           unless request.post?
-            debug_log("request.post? means pass-thru")
+            debug_log("request.post? (#{request.post?.inspect}) means pass-thru")
             return false
           end
           unless request.cookies[COOKIE] != 'accepted'
-            debug_log("request.cookies[#{COOKIE}] means passthru")
+            debug_log("request.cookies[#{COOKIE}] (#{request.cookies[COOKIE]}) means passthru")
             return false
           end
           unless request.params['cookies'] == 'accepted'
-            debug_log("request.params['cookies'] means passthru")
+            debug_log("request.params['cookies'] (#{request.params['cookies']}) means passthru")
             return false
           end
-          debug_log("About to set the acceptance cookie and redirect")
+          debug_log('About to set the acceptance cookie and redirect')
           true
         end
 
         def debug_log(msg)
-          logger.debug("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
+          logger.info("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
         end
 
         def logger
@@ -58,6 +58,8 @@ module Macmillan
         def redirect_back(request)
           response = Rack::Response.new
           location = build_location(request)
+
+          debug_log("Redirecting to #{location}")
 
           response.redirect(location)
           response.set_cookie(COOKIE, cookie_options(request))
