@@ -30,6 +30,7 @@ module Macmillan
           debug_log("request.post? IS #{request.post?.inspect}")
           debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE].inspect}")
           debug_log("request.params['cookies'] IS #{request.params['cookies'].inspect}")
+          debug_log("request.cookies IS #{request.cookies.inspect}")
 
           unless request.post?
             debug_log("request.post? (#{request.post?.inspect}) means passthru")
