@@ -30,6 +30,7 @@ module Macmillan
           debug_log("request.post? IS #{request.post?.inspect}")
           debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE].inspect}")
           debug_log("request.params['cookies'] IS #{request.params['cookies'].inspect}")
+          debug_log("request.cookies IS #{request.cookies.inspect}")
 
           unless request.post?
             debug_log("request.post? (#{request.post?.inspect}) means passthru")
@@ -95,7 +96,7 @@ module Macmillan
 
         def internal_redirect?(request, uri)
           debug_log("Is redirect to #{uri.host}:#{uri.port} internal WRT #{request.host}:#{request.port}")
-          request.host == uri.host && request.port == uri.port
+          request.host == uri.host # && request.port == uri.port
         end
 
         class NullLogger
