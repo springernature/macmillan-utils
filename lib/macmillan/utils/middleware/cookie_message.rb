@@ -28,19 +28,19 @@ module Macmillan
         def cookies_accepted?(request)
 
           debug_log("request.post? IS #{request.post?.inspect}")
-          debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE]}")
-          debug_log("request.params['cookies'] IS #{request.params['cookies']}")
+          debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE].inspect}")
+          debug_log("request.params['cookies'] IS #{request.params['cookies'].inspect}")
 
           unless request.post?
-            debug_log("request.post? (#{request.post?.inspect}) means pass-thru")
+            debug_log("request.post? (#{request.post?.inspect}) means passthru")
             return false
           end
           unless request.cookies[COOKIE] != 'accepted'
-            debug_log("request.cookies[#{COOKIE}] (#{request.cookies[COOKIE]}) means passthru")
+            debug_log("request.cookies['#{COOKIE}'] (#{request.cookies[COOKIE].inspect}) means passthru")
             return false
           end
           unless request.params['cookies'] == 'accepted'
-            debug_log("request.params['cookies'] (#{request.params['cookies']}) means passthru")
+            debug_log("request.params['cookies'] (#{request.params['cookies'].inspect}) means passthru")
             return false
           end
           debug_log('About to set the acceptance cookie and redirect')
@@ -48,7 +48,7 @@ module Macmillan
         end
 
         def debug_log(msg)
-          logger.info("[Macmillan::Utils::Middleware::CookieMessage] #{msg}")
+          logger.info("[Macmillan::Utils::Middleware::CookieMessage] #{msg}\n")
         end
 
         def logger
@@ -78,17 +78,23 @@ module Macmillan
 
         def build_location(request)
           begin
+            debug_log("Attempting to determine redirect by parsing referrer #{request.referrer}")
             uri = URI.parse(request.referrer.to_s)
           rescue URI::InvalidURIError
+            debug_log("No that failed, attempting to determine redirect by parsing request.url #{request.url}")
             uri = URI.parse(request.url)
           end
 
           # Check that the redirect is an internal one for security reasons:
           # https://webmasters.googleblog.com/2009/01/open-redirect-urls-is-your-site-being.html
+          unless internal_redirect?(request, uri)
+            debug_log("Not internal redirect - so changing to #{request.url} instead of the above")
+          end
           internal_redirect?(request, uri) ? uri.to_s : request.url
         end
 
         def internal_redirect?(request, uri)
+          debug_log("Is redirect to #{uri.host}:#{uri.port} internal WRT #{request.host}:#{request.port}")
           request.host == uri.host && request.port == uri.port
         end
 
