@@ -95,7 +95,7 @@ module Macmillan
 
         def internal_redirect?(request, uri)
           debug_log("Is redirect to #{uri.host}:#{uri.port} internal WRT #{request.host}:#{request.port}")
-          request.host == uri.host && request.port == uri.port
+          request.host == uri.host # && request.port == uri.port
         end
 
         class NullLogger
