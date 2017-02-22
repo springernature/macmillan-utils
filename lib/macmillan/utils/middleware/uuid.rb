@@ -1,3 +1,5 @@
+require 'securerandom'
+
 module Macmillan
   module Utils
     module Middleware
