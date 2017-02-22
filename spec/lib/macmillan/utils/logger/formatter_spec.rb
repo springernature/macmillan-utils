@@ -17,22 +17,27 @@ describe Macmillan::Utils::Logger::Formatter do
     it 'is called by the logger object' do
       expect(target).to receive(:write).once
       expect(subject).to receive(:call).once
-      logger.info 'this is a test'
+      logger.info('this is a test')
     end
 
     context 'when a prefix is set' do
-      let(:prefix) { 'WEEEE' }
+      let(:prefix)       { 'WEEEE' }
+      let(:level_prefix) { '[ INFO]:' }
+      let(:suffix)       { "\n" }
 
-      it 'is put in front of the log message' do
-        expect(target).to receive(:write).with("#{prefix} [ INFO]: #{msg}").once
-        logger.info msg
+      it 'appears in front of the log message, and the expected suffix applies' do
+        expect(target).to receive(:write).with("#{prefix} #{level_prefix} #{msg}#{suffix}").once
+        logger.info(msg)
       end
     end
 
     context 'when the log message is a string' do
-      it 'returns the string' do
-        expect(target).to receive(:write).with("[ INFO]: #{msg}").once
-        logger.info msg
+      let(:level_prefix) { '[ INFO]:' }
+      let(:suffix)       { "\n" }
+
+      it 'returns the string prefixed and suffixed appropriately' do
+        expect(target).to receive(:write).with("#{level_prefix} #{msg}#{suffix}").once
+        logger.info(msg)
       end
     end
 
@@ -41,7 +46,7 @@ describe Macmillan::Utils::Logger::Formatter do
         ex = StandardError.new('qwerty')
         allow(ex).to receive(:backtrace).and_return(%w(foo bar baz quux))
         expect(target).to receive(:write).with("[ INFO]: qwerty (StandardError)\nfoo\nbar\nbaz\nquux").once
-        logger.info ex
+        logger.info(ex)
       end
     end
 
@@ -49,8 +54,7 @@ describe Macmillan::Utils::Logger::Formatter do
       it 'retuns object.inspect' do
         ex = []
         expect(ex).to receive(:inspect).once
-
-        logger.info ex
+        logger.info(ex)
       end
     end
   end

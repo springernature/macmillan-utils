@@ -35,7 +35,7 @@ module Macmillan
         def msg2str(msg)
           case msg
           when ::String
-            msg
+            "#{msg}\n"
           when ::Exception
             "#{msg.message} (#{msg.class})\n" << (msg.backtrace || []).join("\n")
           else
