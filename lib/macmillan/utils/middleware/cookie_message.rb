@@ -1,6 +1,7 @@
 require 'rack/request'
 require 'rack/response'
 require 'uri'
+require 'active_support/tagged_logging'
 
 module Macmillan
   module Utils
@@ -9,8 +10,17 @@ module Macmillan
         YEAR = 31_536_000
         COOKIE = 'euCookieNotice'.freeze
 
-        def initialize(app)
+        def initialize(app, options = {})
           @app = app
+          @log_level = options[:log_level]
+
+          if (logger = options[:logger])
+            if logger.respond_to?(:tagged)
+              @logger = logger
+            else
+              @logger = ActiveSupport::TaggedLogging.new(logger)
+            end
+          end
         end
 
         def call(env)
@@ -26,41 +36,54 @@ module Macmillan
         private
 
         def cookies_accepted?(request)
-
-          debug_log("request.post? IS #{request.post?.inspect}")
-          debug_log("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE].inspect}")
-          debug_log("request.params['cookies'] IS #{request.params['cookies'].inspect}")
-          debug_log("request.cookies IS #{request.cookies.inspect}")
+          debug("request.post? IS #{request.post?.inspect}")
+          debug("request.cookies[#{COOKIE}] IS #{request.cookies[COOKIE].inspect}")
+          debug("request.params['cookies'] IS #{request.params['cookies'].inspect}")
+          debug("request.cookies IS #{request.cookies.inspect}")
 
           unless request.post?
-            debug_log("request.post? (#{request.post?.inspect}) means passthru")
+            debug("request.post? (#{request.post?.inspect}) means passthru")
             return false
           end
+
           unless request.cookies[COOKIE] != 'accepted'
-            debug_log("request.cookies['#{COOKIE}'] (#{request.cookies[COOKIE].inspect}) means passthru")
+            debug("request.cookies['#{COOKIE}'] (#{request.cookies[COOKIE].inspect}) means passthru")
             return false
           end
+
           unless request.params['cookies'] == 'accepted'
-            debug_log("request.params['cookies'] (#{request.params['cookies'].inspect}) means passthru")
+            debug("request.params['cookies'] (#{request.params['cookies'].inspect}) means passthru")
             return false
           end
-          debug_log('About to set the acceptance cookie and redirect')
+
+          debug('About to set the acceptance cookie and redirect')
           true
         end
 
-        def debug_log(msg)
-          logger.info("[Macmillan::Utils::Middleware::CookieMessage] #{msg}\n")
+        def debug(msg)
+          logger.tagged(self.class.name) { logger.debug(msg) }
         end
 
         def logger
-          @logger ||= @request.logger || NullLogger.new
+          @logger ||= @request.logger || default_logger
+        end
+
+        def default_logger
+          logger = ::Logger.new($stdout)
+          logger.level = default_log_level
+
+          ActiveSupport::TaggedLogging.new(logger)
+        end
+
+        def default_log_level
+          @log_level || ::Logger::INFO
         end
 
         def redirect_back(request)
           response = Rack::Response.new
           location = build_location(request)
 
-          debug_log("Redirecting to #{location}")
+          debug("Redirecting to #{location}")
 
           response.redirect(location)
           response.set_cookie(COOKIE, cookie_options(request))
@@ -79,30 +102,26 @@ module Macmillan
 
         def build_location(request)
           begin
-            debug_log("Attempting to determine redirect by parsing referrer #{request.referrer}")
+            debug("Attempting to determine redirect by parsing referrer #{request.referrer}")
             uri = URI.parse(request.referrer.to_s)
           rescue URI::InvalidURIError
-            debug_log("No that failed, attempting to determine redirect by parsing request.url #{request.url}")
+            debug("No that failed, attempting to determine redirect by parsing request.url #{request.url}")
             uri = URI.parse(request.url)
           end
 
           # Check that the redirect is an internal one for security reasons:
           # https://webmasters.googleblog.com/2009/01/open-redirect-urls-is-your-site-being.html
-          unless internal_redirect?(request, uri)
-            debug_log("Not internal redirect - so changing to #{request.url} instead of the above")
+          if internal_redirect?(request, uri)
+            uri.to_s
+          else
+            debug("Not internal redirect - so changing to #{request.url} instead of the above")
+            request.url
           end
-          internal_redirect?(request, uri) ? uri.to_s : request.url
         end
 
         def internal_redirect?(request, uri)
-          debug_log("Is redirect to #{uri.host}:#{uri.port} internal WRT #{request.host}:#{request.port}")
+          debug("Is redirect to #{uri.host}:#{uri.port} internal WRT #{request.host}:#{request.port}")
           request.host == uri.host # && request.port == uri.port
-        end
-
-        class NullLogger
-          def method_missing(*args)
-            nil
-          end
         end
       end
     end
