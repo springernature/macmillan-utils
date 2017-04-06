@@ -44,7 +44,7 @@ RSpec.describe Macmillan::Utils::Middleware::CookieMessage do
         it 'sets the cookie' do
           expect(cookie).to match(/euCookieNotice=accepted;/)
           expect(cookie).to match(/domain=www\.nature\.com:80;/)
-          expect(cookie).to match(/path=\/;/)
+          expect(cookie).to match(%r{path=/;})
           expect(cookie).to match(/expires=Wed, 31 Jan 2018 00:00:00 -0000/)
         end
 
@@ -90,6 +90,81 @@ RSpec.describe Macmillan::Utils::Middleware::CookieMessage do
       it 'calls the app' do
         expect(app).to receive(:call).with(env).and_call_original
         expect(response).to eq([200, {}, %w[body]])
+      end
+    end
+  end
+
+  describe 'logging' do
+    let(:url) { 'http://www.nature.com/' }
+    let(:request_method) { 'GET' }
+    let(:output) { StringIO.new }
+
+    matcher :have_output do |expected|
+      match do
+        expected === output(actual)
+      end
+
+      failure_message do |actual|
+        "expected that #{output(actual)} would equal #{expected}"
+      end
+
+      def output(io)
+        io.rewind && io.read
+      end
+    end
+
+    context 'default logging' do
+      subject { described_class.new(app) }
+
+      around do |example|
+        begin
+          stdout = $stdout
+          $stdout = output
+
+          example.run
+        ensure
+          $stdout = stdout
+        end
+      end
+
+      it 'produces no output' do
+        expect(app).to receive(:call).with(env).and_call_original
+        expect(response).to eq([200, {}, %w[body]])
+        expect(output).to have_output('')
+      end
+    end
+
+    context 'custom log level' do
+      subject { described_class.new(app, log_level: ::Logger::DEBUG) }
+
+      around do |example|
+        begin
+          stdout = $stdout
+          $stdout = output
+
+          example.run
+        ensure
+          $stdout = stdout
+        end
+      end
+
+      it 'produces tagged output' do
+        expect(app).to receive(:call).with(env).and_call_original
+        expect(response).to eq([200, {}, %w[body]])
+        expect(output).to have_output(/\[Macmillan::Utils::Middleware::CookieMessage\]/)
+        expect(output).to have_output(/request.post\? \(false\) means passthru/)
+      end
+    end
+
+    context 'custom logger' do
+      let(:logger) { ::Logger.new(output) }
+      subject { described_class.new(app, logger: logger) }
+
+      it 'produces tagged output' do
+        expect(app).to receive(:call).with(env).and_call_original
+        expect(response).to eq([200, {}, %w[body]])
+        expect(output).to have_output(/\[Macmillan::Utils::Middleware::CookieMessage\]/)
+        expect(output).to have_output(/request.post\? \(false\) means passthru/)
       end
     end
   end

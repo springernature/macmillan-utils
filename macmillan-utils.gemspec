@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'syslog-logger'
   spec.add_dependency 'rubocop'
   spec.add_dependency 'colorize'
+  spec.add_dependency 'activesupport', '>= 3.2.0'
 end
