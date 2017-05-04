@@ -156,9 +156,31 @@ RSpec.describe Macmillan::Utils::Middleware::CookieMessage do
       end
     end
 
-    context 'custom logger' do
+    context 'custom logger that does not support tags' do
       let(:logger) { ::Logger.new(output) }
+
       subject { described_class.new(app, logger: logger) }
+
+      it 'produces tagged output' do
+        expect(app).to receive(:call).with(env).and_call_original
+        expect(response).to eq([200, {}, %w[body]])
+        expect(output).to have_output(/\[Macmillan::Utils::Middleware::CookieMessage\]/)
+        expect(output).to have_output(/request.post\? \(false\) means passthru/)
+      end
+    end
+
+    context 'custom logger that does not support tags - provided by Rack' do
+      let(:extra_headers) do
+        {
+          'rack.logger' => ::Logger.new(output)
+        }
+      end
+
+      subject { described_class.new(app) }
+
+      it 'does not throw an error due to missing "tagged" def' do
+        expect{ response }.not_to raise_error
+      end
 
       it 'produces tagged output' do
         expect(app).to receive(:call).with(env).and_call_original
