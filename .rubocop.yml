@@ -64,12 +64,17 @@ Style/CollectionMethods:
     inject: 'reduce'
     detect: 'find'
     find_all: 'select'
+  Enabled: true
 
 Layout/DotPosition:
   EnforcedStyle: leading
   Enabled: true
 
 Style/DoubleNegation:
+  Enabled: false
+
+Style/Alias:
+  # I like alias_method with symbol parameters
   Enabled: false
 
 Layout/SpaceAroundOperators:
@@ -82,3 +87,18 @@ Layout/SpaceAroundOperators:
 Style/SymbolArray:
   # Turned off because the associated auto-correct makes a real mess
   Enabled: false
+
+Style/FrozenStringLiteralComment:
+  # An 'every file in the repo' recommendation.
+  Enabled: false
+  Severity: warning
+
+Layout/EmptyLineAfterMagicComment:
+  # Nooo not another 'every file in the repo' recommendation.
+  Enabled: false
+  Severity: warning
+
+Style/GlobalVars:
+  # Doesn't justify a critical
+  Enabled: true
+  Severity: warning
