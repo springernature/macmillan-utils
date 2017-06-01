@@ -41,6 +41,11 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
         expect(headers['Set-Cookie']).to include("user.uuid=#{user_uuid}")
       end
 
+      it 'uses httponly cookie' do
+        _status, headers, _body = subject.call(request.env)
+        expect(headers['Set-Cookie']).to match(/httponly/i)
+      end
+
       it 'tells following rack app the user_uuid is new' do
         expect(app).to receive(:call).with(hash_including('user.uuid_is_new' => true)).and_return(app_return)
         _status, _headers, _body = subject.call(request.env)
@@ -63,6 +68,11 @@ RSpec.describe Macmillan::Utils::Middleware::Uuid do
       it 'sets the user_uuid cookie' do
         _status, headers, _body = subject.call(request.env)
         expect(headers['Set-Cookie']).to include('user.uuid=wibble')
+      end
+
+      it 'uses httponly cookie' do
+        _status, headers, _body = subject.call(request.env)
+        expect(headers['Set-Cookie']).to match(/httponly/i)
       end
 
       it 'tells following rack app the user_uuid is new' do
