@@ -46,6 +46,7 @@ RSpec.describe Macmillan::Utils::Middleware::CookieMessage do
           expect(cookie).to match(/domain=www\.nature\.com:80;/)
           expect(cookie).to match(%r{path=/;})
           expect(cookie).to match(/expires=Wed, 31 Jan 2018 00:00:00 -0000/)
+          expect(cookie).to match(/httponly/i)
         end
 
         it 'redirects back to the original url' do
