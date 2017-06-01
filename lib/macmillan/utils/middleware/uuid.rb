@@ -76,7 +76,7 @@ module Macmillan
           alias_method :uuid_is_new?, :store_cookie?
 
           def save_cookie
-            cookie_value = { value: final_user_uuid, path: '/', expires: DateTime.now.next_year.to_time }
+            cookie_value = { value: final_user_uuid, path: '/', httponly: true, expires: DateTime.now.next_year.to_time }
             response.set_cookie(cookie_key, cookie_value)
           end
 
