@@ -94,7 +94,7 @@ module Macmillan
         def cookie_options(request)
           {
             value:    'accepted',
-            domain:   request.host_with_port,
+            domain:   ".#{request.host_with_port.split('.').drop(1).join('.')}",
             path:     '/',
             httponly: true,
             expires:  Time.now.getutc + YEAR
