@@ -15,16 +15,14 @@ module Macmillan
           @log_level = options[:log_level]
 
           if (logger = options[:logger])
-            if logger.respond_to?(:tagged)
-              @logger = logger
-            else
-              @logger = ActiveSupport::TaggedLogging.new(logger)
-            end
+            build_tagged_logger(logger)
           end
         end
 
         def call(env)
           @request = Rack::Request.new(env)
+
+          build_tagged_logger(logger)
 
           if cookies_accepted?(@request)
             redirect_back(@request)
@@ -34,6 +32,14 @@ module Macmillan
         end
 
         private
+
+        def build_tagged_logger(logger)
+          if logger.respond_to?(:tagged)
+            @logger = logger
+          else
+            @logger = ActiveSupport::TaggedLogging.new(logger)
+          end
+        end
 
         def cookies_accepted?(request)
           debug("request.post? IS #{request.post?.inspect}")
