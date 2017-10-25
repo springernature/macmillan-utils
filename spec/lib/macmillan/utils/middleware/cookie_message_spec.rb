@@ -43,10 +43,22 @@ RSpec.describe Macmillan::Utils::Middleware::CookieMessage do
 
         it 'sets the cookie' do
           expect(cookie).to match(/euCookieNotice=accepted;/)
-          expect(cookie).to match(/domain=www\.nature\.com:80;/)
+          expect(cookie).to match(/domain=\.nature\.com:80;/)
           expect(cookie).to match(%r{path=/;})
           expect(cookie).to match(/expires=Wed, 31 Jan 2018 00:00:00 -0000/)
           expect(cookie).to match(/httponly/i)
+        end
+
+        context 'and  the domain non-standard' do
+          let(:url) { 'http://test-www.naturechina.com:5124/?cookies=accepted' }
+
+          it 'sets the cookie' do
+            expect(cookie).to match(/euCookieNotice=accepted;/)
+            expect(cookie).to match(/domain=\.naturechina\.com:5124;/)
+            expect(cookie).to match(%r{path=/;})
+            expect(cookie).to match(/expires=Wed, 31 Jan 2018 00:00:00 -0000/)
+            expect(cookie).to match(/httponly/i)
+          end
         end
 
         it 'redirects back to the original url' do
